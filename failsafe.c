@@ -107,7 +107,9 @@ void failsafe_throw(const char *message, void *callee, void (*dispose)()) {
     fprintf(stderr, "Type in 'quit' or 'q' to end process.\n");
     static char arr[5];
     fgets(arr, 5, stdin);
-    if (!strcmp(arr, "quit") || !strcmp(arr, "q"))
+    if (!strcmp(arr, "quit"))
+        result = 1;
+    else if (!strcmp(arr, "q"))
         result = 1;
 #endif
 
