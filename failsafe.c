@@ -61,8 +61,12 @@ void failsafe_fatal(const char *message, void *callee) {
     char *first, *newbuf, *numbuf;
     first = "Fatal error from 0x";
     newbuf = calloc(strlen(first) + strlen(message) + 20, 1);
-    
+
+#ifdef __x86_64__
     numbuf = _lltoa((unsigned long long)callee, 16);
+#else
+    numbuf = _lltoa((unsigned long)callee, 16);
+#endif
     strcpy(newbuf, first);
     strcat(newbuf, numbuf);
     strcat(newbuf, "\n");
@@ -82,8 +86,12 @@ void failsafe_throw(const char *message, void *callee, void (*dispose)()) {
     char *first, *newbuf, *numbuf;
     first = "Exception from 0x";
     newbuf = calloc(strlen(first) + strlen(message) + 20, 1);
-    
+
+#ifdef __x86_64__
     numbuf = _lltoa((unsigned long long)callee, 16);
+#else
+    numbuf = _lltoa((unsigned long)callee, 16);
+#endif
     strcpy(newbuf, first);
     strcat(newbuf, numbuf);
     strcat(newbuf, "\n");
